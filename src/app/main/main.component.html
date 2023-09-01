@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-3">
+    <p-tree
+      [value]="treeContent"
+      selectionMode="single"
+      (selectionChange)="onNodeSelect($event)"
+    >
+      <ng-template let-content>
+        <p>{{ content.label }}</p>
+      </ng-template>
+      <ng-template let-content>
+        <p>{{ content.label }}</p>
+      </ng-template>
+    </p-tree>
+  </div>
+  <div class="col-9">
+    <div class="card-content">
+      <div class="styles">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

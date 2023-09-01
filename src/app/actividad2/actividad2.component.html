@@ -1,0 +1,50 @@
+<h3 class="title">Conjunto de seleccion multiple</h3>
+<p-divider></p-divider>
+<h4 class="title">Resolver las sumas</h4>
+<form (ngSubmit)="enviarRespuestas()">
+  <div *ngFor="let pregunta of preguntas; let i = index">
+    <h3>{{ pregunta.numero }} {{ pregunta.pregunta }}</h3>
+    <div
+      class="opciones"
+      *ngFor="let opcion of pregunta.opciones; let j = index"
+    >
+      <p-radioButton
+        name="pregunta{{ i }}"
+        [(ngModel)]="respuestas['pregunta' + i]"
+        [value]="opcion"
+      >
+      </p-radioButton>
+      {{ opcion }}
+    </div>
+    <p>{{ mensajes[i] }}</p>
+    <p-button
+      label="Ver retroalimentacion"
+      *ngIf="envio"
+      (click)="showDialog(i)"
+    ></p-button>
+    <p-dialog
+      header="Retroalimentacion"
+      [(visible)]="mostrarRespuesta[i]"
+      [modal]="true"
+    >
+      <p>Ejercicio {{ pregunta.numero }}</p>
+      <p *ngIf="respuestasCorrectas[i]; else incorrecto">
+        Felicitaciones, lo hiciste muy bien.
+      </p>
+      <ng-template #incorrecto>
+        <p>{{ pregunta.mensajeError }}</p>
+      </ng-template>
+      <p-footer>
+        <button
+          pButton
+          type="button"
+          label="Cerrar"
+          (click)="cerrarModal(i)"
+        ></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+  <div class="send">
+    <p-button label="Enviar respuestas" type="submit"></p-button>
+  </div>
+</form>
